@@ -58,12 +58,12 @@ def create_car():
 def import_cars(csv_file):
     with db_cursor() as db:
         # csv_file = get_input("Input path of CSV file to import into database: ")
+        num = 0
         fh = open(csv_file)
         fr = fh.read()
         fs = fr.split()
         for item in fs:
             item.split('\n')
-            num = 0
             year = item.split(',')[0]
             make = item.split(',')[1]
             model = item.split(',')[2]
