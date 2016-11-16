@@ -90,11 +90,15 @@ def import_cars(csv_file):
             make = sv[1]
             model = sv[2].strip('\n')
 
-            row = (num, year, make, model)
+            if year == 'year':
+                pass
+            else:
 
-            print "Inserting a {} {} {} into the database....".format(year,make,model)
-            db.execute("INSERT INTO cars VALUES (?, ?, ?, ?)", row)
-            num = num + 1
+                row = (num, year, make, model)
+
+                print "Inserting a {} {} {} into the database....".format(year,make,model)
+                db.execute("INSERT INTO cars VALUES (?, ?, ?, ?)", row)
+                num = num + 1
 
 def update_car():
     with db_cursor() as db:
