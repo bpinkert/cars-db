@@ -60,6 +60,7 @@ def create_car():
 def import_cars(csv_file):    
     with db_cursor() as db:
         num = 0
+        db.execute("DELETE FROM cars")
         reader = open(csv_file)
         for row in reader:
             st = str(row)
@@ -72,9 +73,7 @@ def import_cars(csv_file):
             if year == 'year':
                 pass
             else:
-
-                row = (num, year, make, model)
-
+                row = (num, year, make, model)    
                 print "Inserting a {} {} {} into the database....".format(year,make,model)
                 db.execute("INSERT OR REPLACE INTO cars VALUES (?, ?, ?, ?)", row)
                 num = num + 1
