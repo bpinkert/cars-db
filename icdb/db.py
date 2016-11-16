@@ -8,7 +8,7 @@ DATABASE = 'icdb.db'
 def _create_database():
     conn = sqlite3.connect(DATABASE)
     c = conn.cursor()
-    c.execute("CREATE TABLE cars (num integer, year integer, make text, model text)")
+    c.execute("CREATE TABLE cars (num integer primary key, year integer, make text, model text)")
     c.close()
 
 

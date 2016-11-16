@@ -58,34 +58,13 @@ def create_car():
 
 
 def import_cars(csv_file):    
-    # with db_cursor() as db:
-    #     # csv_file = get_input("Input path of CSV file to import into database: ")
-    #     num = 0
-    #     fh = open(csv_file)
-    #     fr = fh.read()
-    #     fs = fr.split('\n')
-    #     for item in fs:
-    #         # item.split('\n')
-    #         year = item.split(',')[0]
-    #         make = item.split(',')[1]
-    #         model = item.split(',')[2]
-
-    #         row = (num, year, make, model)
-
-    #         # if not all(row):
-    #         #     logger.error("Check your csv file, some fields are missing.")
-    #         #     return
-
-    #         print "Inserting a {} {} {} into the database...".format(year,make,model)
-    #         db.execute("INSERT INTO cars VALUES (?, ?, ?, ?)", row)
-    #         num = num + 1
     with db_cursor() as db:
         num = 0
         reader = open(csv_file)
         for row in reader:
             st = str(row)
             sv = st.split(',')
-            print sv
+            # print sv
             year = sv[0]
             make = sv[1]
             model = sv[2].strip('\n')
@@ -97,7 +76,7 @@ def import_cars(csv_file):
                 row = (num, year, make, model)
 
                 print "Inserting a {} {} {} into the database....".format(year,make,model)
-                db.execute("INSERT INTO cars VALUES (?, ?, ?, ?)", row)
+                db.execute("INSERT OR REPLACE INTO cars VALUES (?, ?, ?, ?)", row)
                 num = num + 1
 
 def update_car():
