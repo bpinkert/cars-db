@@ -56,12 +56,32 @@ def create_car():
 
 
 def import_cars(csv_file):
-    logger.error("This has not been implemented yet.")
+    with db_cursor() as db:
+        # csv_file = get_input("Input path of CSV file to import into database: ")
+        fh = open(csv_file)
+        fr = fh.read()
+        fs = fr.split()
+        for item in fs:
+            item.split('\n')
+            num = 0
+            year = item.split(',')[0]
+            make = item.split(',')[1]
+            model = item.split(',')[2]
+
+            row = (num, year, make, model)
+
+            # if not all(row):
+            #     logger.error("Check your csv file, some fields are missing.")
+            #     return
+
+            print "Inserting a {} {} {} into the database...".format(year,make,model)
+            db.execute("INSERT INTO cars VALUES (?, ?, ?, ?)", row)
+            num = num + 1
 
 
 def update_car():
     with db_cursor() as db:
-        upcar = get_input("Select reference number to update: ")
+        upcar = get_input("Select reference number to update:   ")
 
         if len(upcar) == 0:
             logger.error("You must select a reference number to update")
